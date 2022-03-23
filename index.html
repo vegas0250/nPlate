@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/dest/n-plate.css">
+</head>
+<body>
+    <div class="n-plate"></div>
+    
+
+    <script src="assets/dest/n-plate.js"></script>
+    <script>
+
+      nPlate('.n-plate', {
+        'url': '',
+        'table': 'orders',
+        'columns': {
+          'id': {
+            'label': 'test',
+            'type': 'integer',
+          }
+        }
+      });
+
+      /*
+        var data = {
+          'table': 'orders',
+          'column': {
+            'id': {
+              'label': 'id',
+              'filter': true,
+              'type': 'integer'
+            }
+          },
+        };
+
+        var tempRowData = {
+          'filter': 1,
+          'search': 1,
+          'page': 1,
+          'order': null,
+          'direction': null,
+          'size': 10
+        }
+      */
+      // document.addEventListener('load', function(){})
+    </script>
+</body>
+</html>
