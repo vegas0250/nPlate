@@ -1,3 +1,46 @@
 .n-plate {
-  color: red;
+  font-family: monospace;
+}
+.n-plate img {
+  width: 15px;
+}
+.n-plate__control {
+  display: flex;
+}
+.n-plate__paginator {
+  display: flex;
+}
+.n-plate__paginator-content {
+  height: 17px;
+  border: 1px solid #ccc;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.n-plate__paginator-first, .n-plate__paginator-prev, .n-plate__paginator-next, .n-plate__paginator-last {
+  width: 17px;
+  height: 17px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.n-plate__reload {
+  margin-left: 8px;
+  width: 17px;
+  height: 17px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.n-plate__setting {
+  margin-left: auto;
+  width: 17px;
+  height: 17px;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
