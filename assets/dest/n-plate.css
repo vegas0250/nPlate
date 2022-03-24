@@ -8,6 +8,14 @@
 .n-plate img {
   width: 15px;
 }
+.n-plate tbody td {
+  white-space: nowrap;
+}
+.n-plate__context {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
 .n-plate__filter {
   width: 100%;
   border: 1px solid #ccc;
@@ -59,6 +67,7 @@
 }
 .n-plate__search {
   height: 13px;
+  outline: none;
 }
 .n-plate__setting {
   width: 17px;
@@ -67,6 +76,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+.n-plate__setting .n-plate__context {
+  display: none;
+  top: 0;
+  right: 0;
+  margin-top: 19px;
+  margin-right: -1px;
 }
 .n-plate__table {
   border-collapse: collapse;

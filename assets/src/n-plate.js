@@ -73,6 +73,21 @@ function nPlate (elem, config) {
         var nPlateSettingSvg = document.createElement('img');
         nPlateSettingSvg.setAttribute('src', 'img/setting.svg');
 
+        var nPlateSettingContext = document.createElement('div');
+        nPlateSettingContext.setAttribute('class', 'n-plate__context');
+
+        for (i in this.config.columns) {
+            var nPlateSettingContextItemInput = document.createElement('input');
+            nPlateSettingContextItemInput.setAttribute('type', 'checkbox');
+
+            var nPlateSettingContextItem = document.createElement('div');
+            nPlateSettingContextItem.setAttribute('class', 'n-plate__context-item');
+            nPlateSettingContextItem.innerHTML = this.config.columns[i];
+
+            nPlateSettingContextItem.appendChild(nPlateSettingContextItemInput);
+            nPlateSettingContext.appendChild(nPlateSettingContextItem);
+        }
+
         nPlatePaginatorFirst.appendChild(nPlatePaginatorFirstSvg);
         nPlatePaginatorPrev.appendChild(nPlatePaginatorPrevSvg);
         nPlatePaginatorNext.appendChild(nPlatePaginatorNextSvg);
@@ -88,6 +103,7 @@ function nPlate (elem, config) {
         nPlateFinder.appendChild(nPlateSearch);
 
         nPlateSetting.appendChild(nPlateSettingSvg);
+        nPlateSetting.appendChild(nPlateSettingContext);
 
         nPlatePaginator.appendChild(nPlatePaginatorFirst);
         nPlatePaginator.appendChild(nPlatePaginatorPrev);
@@ -133,8 +149,6 @@ function nPlate (elem, config) {
         }
 
         var nPlateTableTBody = document.createElement('tbody');
-        // var nPlateTableTBodyTr
-        // var nPlateTableTBodyTd
 
         nPlateTableTHeadTr.appendChild(nPlateTableTHeadTh);
         nPlateTableTHead.appendChild(nPlateTableTHeadTr);
@@ -236,7 +250,6 @@ function nPlate (elem, config) {
         
     }
 
-
     // start 
     this.elem = document.querySelector(elem);
     this.config = config;
@@ -245,8 +258,21 @@ function nPlate (elem, config) {
     this.buildTable();
     this.buildRows();
 
-    var reload = this.elem.querySelector('.n-plate__reload')
-    reload.addEventListener('click', () => {
+    this.elem.querySelectorAll('.n-plate__filter').forEach(filter => 
+        filter.addEventListener('keypress', (e) => {
+            if (e.key == 'Enter') {
+                this.load();
+            }
+        })
+    )
+
+    this.elem.querySelector('.n-plate__search').addEventListener('keypress', (e) => {
+        if (e.key == 'Enter') {
+            this.load();
+        }
+    })
+
+    this.elem.querySelector('.n-plate__reload').addEventListener('click', () => {
         this.load();
     });
 

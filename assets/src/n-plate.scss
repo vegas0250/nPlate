@@ -10,6 +10,18 @@
         width: 15px;
     }
 
+    tbody {
+        td {
+            white-space: nowrap;
+        }
+    }
+
+    &__context {
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ccc;
+    }
+
     &__filter {
         width: 100%;
         border: 1px solid #ccc;
@@ -73,6 +85,7 @@
 
     &__search {
         height: 13px;
+        outline: none;
     }
 
     &__setting {
@@ -82,6 +95,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+
+        .n-plate__context {
+            display: none;
+            top: 0;
+            right: 0;
+            margin-top: 19px;
+            margin-right: -1px;
+        }
     }
 
     &__table {
