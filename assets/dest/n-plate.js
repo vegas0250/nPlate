@@ -251,6 +251,8 @@ function nPlate (elem, config) {
     }
 
     // start 
+    console.log({'this': this});
+    
     this.elem = document.querySelector(elem);
     this.config = config;
 

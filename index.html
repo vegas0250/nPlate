@@ -10,9 +10,288 @@
 <body>
     <div class="n-plate"></div>
     
+    <!--
     <script src="assets/dest/n-plate.js"></script>
+    -->
     <script>
 
+      class nPlate {
+
+        elem = null;
+
+        config = {
+          'url': '',
+          'table': '',
+          'columns': {},
+          'page': 1,
+          'limit': 10
+        };
+
+        constructor(elem, config = {}) {
+          this.elem = document.querySelector(elem);
+
+          Object.assign(this.config, config);
+
+          for (let i in this.config.columns) {
+            if (this.config.columns[i].label == undefined) {
+              this.config.columns[i].label = i;
+            }
+
+            if (this.config.columns[i].visible == undefined) {
+              this.config.columns[i].visible = true;
+            }
+          }
+
+          console.log(this.config);
+
+          this.configLoad();
+
+          // this.configLoad();
+
+          this.init();
+        }
+
+        configSave() {
+          window.localStorage.setItem('nPlateConfig', JSON.stringify(this.config));
+        }
+
+        configLoad() {
+          let loadingConfig = JSON.parse(window.localStorage.getItem('nPlateConfig'));
+          Object.assign(this.config, loadingConfig);
+        }
+
+        buildControl() {
+            
+          var nPlateControl = document.createElement('div');
+          nPlateControl.setAttribute('class', 'n-plate__control');
+
+          var nPlatePaginator = document.createElement('div');
+          nPlatePaginator.setAttribute('class', 'n-plate__paginator');
+
+          var nPlatePaginatorFirst = document.createElement('div');
+          nPlatePaginatorFirst.setAttribute('class', 'n-plate__paginator-first');
+          
+          var nPlatePaginatorFirstSvg = document.createElement('img');
+          nPlatePaginatorFirstSvg.setAttribute('src', 'img/page-first.svg');
+          
+          var nPlatePaginatorPrev = document.createElement('div');
+          nPlatePaginatorPrev.setAttribute('class', 'n-plate__paginator-prev');
+
+          var nPlatePaginatorPrevSvg = document.createElement('img');
+          nPlatePaginatorPrevSvg.setAttribute('src', 'img/angle-left.svg');
+
+          var nPlatePaginatorContent = document.createElement('div');
+          nPlatePaginatorContent.setAttribute('class', 'n-plate__paginator-content');
+          nPlatePaginatorContent.innerHTML = '1';
+
+          var nPlatePaginatorNext = document.createElement('div');
+          nPlatePaginatorNext.setAttribute('class', 'n-plate__paginator-next');
+
+          var nPlatePaginatorNextSvg = document.createElement('img');
+          nPlatePaginatorNextSvg.setAttribute('src', 'img/angle-right.svg');
+
+          var nPlatePaginatorLast = document.createElement('div');
+          nPlatePaginatorLast.setAttribute('class', 'n-plate__paginator-last');
+
+          var nPlatePaginatorLastSvg = document.createElement('img');
+          nPlatePaginatorLastSvg.setAttribute('src', 'img/page-last.svg');
+
+          var nPlateReload = document.createElement('div');
+          nPlateReload.setAttribute('class', 'n-plate__reload');
+
+          var nPlateReloadSvg = document.createElement('img');
+          nPlateReloadSvg.setAttribute('src', 'img/reload.svg');
+
+          var nPlateLimit = document.createElement('select');
+          nPlateLimit.setAttribute('class', 'n-plate__limit');
+
+          var nPlateLimitOption10 = document.createElement('option');
+          nPlateLimitOption10.setAttribute('value', 10);
+          nPlateLimitOption10.innerHTML = 10;
+
+          var nPlateLimitOption20 = document.createElement('option');
+          nPlateLimitOption20.setAttribute('value', 20);
+          nPlateLimitOption20.innerHTML = 20;
+
+          var nPlateLimitOption50 = document.createElement('option');
+          nPlateLimitOption50.setAttribute('value', 50);
+          nPlateLimitOption50.innerHTML = 50;
+
+          var nPlateLimitOption100 = document.createElement('option');
+          nPlateLimitOption100.setAttribute('value', 100);
+          nPlateLimitOption100.innerHTML = 100;
+
+          var nPlateFinder = document.createElement('div');
+          nPlateFinder.setAttribute('class', 'n-plate__finder');
+
+          var nPlateSearch = document.createElement('input');
+          nPlateSearch.setAttribute('class', 'n-plate__search');
+
+          var nPlateSetting = document.createElement('div');
+          nPlateSetting.setAttribute('class', 'n-plate__setting');
+
+          var nPlateSettingSvg = document.createElement('img');
+          nPlateSettingSvg.setAttribute('src', 'img/setting.svg');
+
+          var nPlateSettingContext = document.createElement('div');
+          nPlateSettingContext.setAttribute('class', 'n-plate__context');
+
+          for (var i in this.config.columns) {
+            var nPlateSettingContextItemInput = document.createElement('input');
+            nPlateSettingContextItemInput.setAttribute('name', i);
+            nPlateSettingContextItemInput.setAttribute('type', 'checkbox');
+            nPlateSettingContextItemInput.setAttribute('class', 'n-plate__visible');
+
+            if (this.config.columns[i].visible) {
+              nPlateSettingContextItemInput.checked = true;
+            } else {
+              nPlateSettingContextItemInput.checked = false;
+            }
+
+            var nPlateSettingContextItem = document.createElement('div');
+            nPlateSettingContextItem.setAttribute('class', 'n-plate__context-item');
+            nPlateSettingContextItem.innerHTML = i;
+
+            nPlateSettingContextItem.appendChild(nPlateSettingContextItemInput);
+            nPlateSettingContext.appendChild(nPlateSettingContextItem);
+          }
+
+          nPlatePaginatorFirst.appendChild(nPlatePaginatorFirstSvg);
+          nPlatePaginatorPrev.appendChild(nPlatePaginatorPrevSvg);
+          nPlatePaginatorNext.appendChild(nPlatePaginatorNextSvg);
+          nPlatePaginatorLast.appendChild(nPlatePaginatorLastSvg);
+
+          nPlateLimit.appendChild(nPlateLimitOption10);
+          nPlateLimit.appendChild(nPlateLimitOption20);
+          nPlateLimit.appendChild(nPlateLimitOption50);
+          nPlateLimit.appendChild(nPlateLimitOption100);
+
+          nPlateReload.appendChild(nPlateReloadSvg);
+
+          nPlateFinder.appendChild(nPlateSearch);
+
+          nPlateSetting.appendChild(nPlateSettingSvg);
+          nPlateSetting.appendChild(nPlateSettingContext);
+
+          nPlatePaginator.appendChild(nPlatePaginatorFirst);
+          nPlatePaginator.appendChild(nPlatePaginatorPrev);
+          nPlatePaginator.appendChild(nPlatePaginatorContent);
+          nPlatePaginator.appendChild(nPlatePaginatorNext);
+          nPlatePaginator.appendChild(nPlatePaginatorLast);
+
+          nPlateControl.appendChild(nPlatePaginator);
+          nPlateControl.appendChild(nPlateLimit);
+          nPlateControl.appendChild(nPlateReload);
+          nPlateControl.appendChild(nPlateFinder);
+          nPlateControl.appendChild(nPlateSetting);
+
+          this.elem.appendChild(nPlateControl);
+        }
+
+        buildTable() {
+
+          if (this.elem.querySelector('.n-plate__workflow')) {
+            this.elem.removeChild(this.elem.querySelector('.n-plate__workflow'));
+          }
+
+          var nPlateWorkflow = document.createElement('div');
+          nPlateWorkflow.setAttribute('class', 'n-plate__workflow');
+
+          var nPlateTable = document.createElement('table');
+          nPlateTable.setAttribute('class', 'n-plate__table');
+
+          var nPlateTableTHead = document.createElement('thead');
+          var nPlateTableTHeadTr = document.createElement('tr');
+          
+          for (let i in this.config.columns) {
+            if (!this.config.columns[i].visible) continue;
+
+            var nPlateTableTHeadTh = document.createElement('th');
+            var nPlateTableTHeadThDiv = document.createElement('div');
+            var nPlateTableTHeadThInput = document.createElement('input');
+            nPlateTableTHeadThInput.setAttribute('name', i);
+            nPlateTableTHeadThInput.setAttribute('type', 'text');
+            nPlateTableTHeadThInput.setAttribute('class', 'n-plate__filter');
+
+            nPlateTableTHeadThDiv.innerHTML += i;
+
+            nPlateTableTHeadTh.appendChild(nPlateTableTHeadThDiv);
+            nPlateTableTHeadTh.appendChild(nPlateTableTHeadThInput);
+            nPlateTableTHeadTr.appendChild(nPlateTableTHeadTh);
+          }
+
+          var nPlateTableTBody = document.createElement('tbody');
+
+          nPlateTableTHeadTr.appendChild(nPlateTableTHeadTh);
+          nPlateTableTHead.appendChild(nPlateTableTHeadTr);
+
+          nPlateTable.appendChild(nPlateTableTHead);
+          nPlateTable.appendChild(nPlateTableTBody);
+
+          nPlateWorkflow.appendChild(nPlateTable);
+
+          this.elem.appendChild(nPlateWorkflow);
+        }
+
+        init() {
+          this.buildControl();
+          this.buildTable();
+
+          this.elem.querySelectorAll('.n-plate__visible').forEach(item => {
+            item.addEventListener('change', () => {
+              this.elem.querySelectorAll('.n-plate__visible').forEach(item => {
+                this.config.columns[item.getAttribute('name')]['visible'] = item.checked;
+                this.configSave();
+                this.buildTable();
+              })
+            })
+          })
+        }
+
+      }
+
+      new nPlate('.n-plate', {
+        'url': 'http://shop.local/test-data',
+        'table': 'orders',
+        'columns': {
+          'id': {},
+          'user_id': {},
+          'status_id': {},
+          'total_price': {},
+          'offers_price': {},
+          'offers_weight': {},
+          'offers_volume': {},
+          'delivery_price': {},
+          'delivery_city_id': {},
+          'delivery_city_name': {},
+          'delivery_tariff_id': {},
+          'delivery_is_type': {},
+          'delivery_is_to_door': {},
+          'delivery_address': {},
+          'delivery_apartment': {},
+          'paid_at': {},
+          'created_at': {},
+          'updated_at': {},
+          'end_at': {},
+          'article': {},
+          'is_sale': {},
+          'number': {},
+          'is_cashback': {},
+          'cashback_price': {},
+          'delivery_service': {},
+          'comment': {},
+          'is_active': {},
+          'payment_id': {},
+          'track_number': {},
+          'track_type': {},
+          'track_comment': {}
+        }
+      });
+
+    </script>
+    <script>
+
+      /*
       nPlate('.n-plate', {
         'url': 'http://shop.local/test-data',
         'table': 'orders',
@@ -50,6 +329,7 @@
           'track_comment'
         ]
       });
+      */
 
     
 
