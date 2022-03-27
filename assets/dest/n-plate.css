@@ -42,6 +42,7 @@
   justify-content: center;
 }
 .n-plate__paginator-first, .n-plate__paginator-prev, .n-plate__paginator-next, .n-plate__paginator-last {
+  cursor: pointer;
   width: 17px;
   height: 17px;
   border: 1px solid #ccc;
@@ -53,6 +54,7 @@
   margin-left: 8px;
 }
 .n-plate__reload {
+  cursor: pointer;
   margin-left: 8px;
   width: 17px;
   height: 17px;
@@ -84,6 +86,9 @@
   right: 0;
   margin-top: 19px;
   margin-right: -1px;
+}
+.n-plate__sort {
+  cursor: pointer;
 }
 .n-plate__table {
   border-collapse: collapse;

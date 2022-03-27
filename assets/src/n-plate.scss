@@ -55,6 +55,7 @@
         &-prev,
         &-next,
         &-last {
+            cursor: pointer;
             width: 17px;
             height: 17px;
             border: 1px solid #ccc;
@@ -69,6 +70,7 @@
     }
 
     &__reload {
+        cursor: pointer;
         margin-left: 8px;
         width: 17px;
         height: 17px;
@@ -104,6 +106,10 @@
             margin-top: 19px;
             margin-right: -1px;
         }
+    }
+
+    &__sort {
+        cursor: pointer;
     }
 
     &__table {

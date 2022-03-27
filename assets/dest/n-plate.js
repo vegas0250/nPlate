@@ -13,7 +13,7 @@ class nPlate {
     constructor(elem, config = {}) {
       this.elem = document.querySelector(elem);
 
-      Object.assign(this.config, config);
+      this.config = Object.assign(this.config, config);
 
       for (let i in this.config.columns) {
         if (this.config.columns[i].label == undefined) {
@@ -25,9 +25,9 @@ class nPlate {
         }
       }
 
-      console.log(this.config);
-
       this.configLoad();
+
+      console.log(this.config);
 
       // this.configLoad();
 
@@ -46,7 +46,7 @@ class nPlate {
 
     configLoad() {
       let loadingConfig = JSON.parse(window.localStorage.getItem('nPlateConfig'));
-      Object.assign(this.config, loadingConfig);
+      this.config = Object.assign(this.config, loadingConfig);
     }
 
     buildControl() {
@@ -205,7 +205,7 @@ class nPlate {
         nPlateTableTHeadThInput.setAttribute('type', 'text');
         nPlateTableTHeadThInput.setAttribute('class', 'n-plate__filter');
 
-        nPlateTableTHeadThDiv.innerHTML += i;
+        nPlateTableTHeadThDiv.innerHTML += this.config.columns[i].label;
 
         nPlateTableTHeadTh.appendChild(nPlateTableTHeadThDiv);
         nPlateTableTHeadTh.appendChild(nPlateTableTHeadThInput);
