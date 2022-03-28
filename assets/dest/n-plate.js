@@ -12,8 +12,9 @@ class nPlate {
 
     constructor(elem, config = {}) {
       this.elem = document.querySelector(elem);
-
       this.config = Object.assign(this.config, config);
+
+      
 
       for (let i in this.config.columns) {
         if (this.config.columns[i].label == undefined) {
@@ -25,12 +26,8 @@ class nPlate {
         }
       }
 
+ 
       this.configLoad();
-
-      console.log(this.config);
-
-      // this.configLoad();
-
       this.init();
     }
 
@@ -292,12 +289,11 @@ class nPlate {
               return response.json();
           })
           .then((data) => {
-              console.log(data);
+              // console.log(data);
 
               var tbody = this.elem.querySelector('tbody');
               tbody.innerHTML = '';
 
-              //console.log(this.config);
               this.config.count = data.count;
 
               for(let i in data.rows) {
@@ -412,6 +408,9 @@ class nPlate {
               field: field,
               direction: 'asc',
             }
+
+            this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_desc');
+            this.elem.querySelector('.n-plate__sort').classList.add('n-plate__sort_asc');
           } else {
 
             if (this.config.order.field == field) {
@@ -420,14 +419,22 @@ class nPlate {
                   field: field,
                   direction: 'desc',
                 }
+
+                this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_asc');
+                this.elem.querySelector('.n-plate__sort').classList.add('n-plate__sort_desc');
+                  
               } else {
                 delete this.config.order;
+
+                this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_asc');
+                this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_desc');
               }
             } else {
               this.config.order = {
                 field: field,
                 direction: 'asc',
               }
+
             }
           }
 
