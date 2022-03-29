@@ -14,8 +14,6 @@ class nPlate {
       this.elem = document.querySelector(elem);
       this.config = Object.assign(this.config, config);
 
-      
-
       for (let i in this.config.columns) {
         if (this.config.columns[i].label == undefined) {
           this.config.columns[i].label = i;
@@ -27,7 +25,7 @@ class nPlate {
       }
 
  
-      this.configLoad();
+      // this.configLoad();
       this.init();
     }
 
@@ -35,7 +33,7 @@ class nPlate {
 
       var config = {
         'limit': this.config.limit,
-        'columns': this.config.columns
+        // 'columns': this.config.columns
       }
 
       window.localStorage.setItem('nPlateConfig', JSON.stringify(config));
@@ -57,14 +55,14 @@ class nPlate {
       var nPlatePaginatorFirst = document.createElement('div');
       nPlatePaginatorFirst.setAttribute('class', 'n-plate__paginator-first');
       
-      var nPlatePaginatorFirstSvg = document.createElement('img');
-      nPlatePaginatorFirstSvg.setAttribute('src', 'img/page-first.svg');
+      // var nPlatePaginatorFirstSvg = document.createElement('img');
+      // nPlatePaginatorFirstSvg.setAttribute('src', 'img/page-first.svg');
       
       var nPlatePaginatorPrev = document.createElement('div');
       nPlatePaginatorPrev.setAttribute('class', 'n-plate__paginator-prev');
 
-      var nPlatePaginatorPrevSvg = document.createElement('img');
-      nPlatePaginatorPrevSvg.setAttribute('src', 'img/angle-left.svg');
+      // var nPlatePaginatorPrevSvg = document.createElement('img');
+      // nPlatePaginatorPrevSvg.setAttribute('src', 'img/angle-left.svg');
 
       var nPlatePaginatorContent = document.createElement('div');
       nPlatePaginatorContent.setAttribute('class', 'n-plate__paginator-content');
@@ -73,20 +71,20 @@ class nPlate {
       var nPlatePaginatorNext = document.createElement('div');
       nPlatePaginatorNext.setAttribute('class', 'n-plate__paginator-next');
 
-      var nPlatePaginatorNextSvg = document.createElement('img');
-      nPlatePaginatorNextSvg.setAttribute('src', 'img/angle-right.svg');
+      // var nPlatePaginatorNextSvg = document.createElement('img');
+      // nPlatePaginatorNextSvg.setAttribute('src', 'img/angle-right.svg');
 
       var nPlatePaginatorLast = document.createElement('div');
       nPlatePaginatorLast.setAttribute('class', 'n-plate__paginator-last');
 
-      var nPlatePaginatorLastSvg = document.createElement('img');
-      nPlatePaginatorLastSvg.setAttribute('src', 'img/page-last.svg');
+      // var nPlatePaginatorLastSvg = document.createElement('img');
+      // nPlatePaginatorLastSvg.setAttribute('src', 'img/page-last.svg');
 
       var nPlateReload = document.createElement('div');
       nPlateReload.setAttribute('class', 'n-plate__reload');
 
-      var nPlateReloadSvg = document.createElement('img');
-      nPlateReloadSvg.setAttribute('src', 'img/reload.svg');
+      // var nPlateReloadSvg = document.createElement('img');
+      // nPlateReloadSvg.setAttribute('src', 'img/reload.svg');
 
       var nPlateLimit = document.createElement('select');
       nPlateLimit.setAttribute('class', 'n-plate__limit');
@@ -142,17 +140,17 @@ class nPlate {
         nPlateSettingContext.appendChild(nPlateSettingContextItem);
       }
 
-      nPlatePaginatorFirst.appendChild(nPlatePaginatorFirstSvg);
-      nPlatePaginatorPrev.appendChild(nPlatePaginatorPrevSvg);
-      nPlatePaginatorNext.appendChild(nPlatePaginatorNextSvg);
-      nPlatePaginatorLast.appendChild(nPlatePaginatorLastSvg);
+      // nPlatePaginatorFirst.appendChild(nPlatePaginatorFirstSvg);
+      // nPlatePaginatorPrev.appendChild(nPlatePaginatorPrevSvg);
+      // nPlatePaginatorNext.appendChild(nPlatePaginatorNextSvg);
+      // nPlatePaginatorLast.appendChild(nPlatePaginatorLastSvg);
 
       nPlateLimit.appendChild(nPlateLimitOption10);
       nPlateLimit.appendChild(nPlateLimitOption20);
       nPlateLimit.appendChild(nPlateLimitOption50);
       nPlateLimit.appendChild(nPlateLimitOption100);
 
-      nPlateReload.appendChild(nPlateReloadSvg);
+      // nPlateReload.appendChild(nPlateReloadSvg);
 
       nPlateFinder.appendChild(nPlateSearch);
 
@@ -169,7 +167,7 @@ class nPlate {
       nPlateControl.appendChild(nPlateLimit);
       nPlateControl.appendChild(nPlateReload);
       nPlateControl.appendChild(nPlateFinder);
-      nPlateControl.appendChild(nPlateSetting);
+      // nPlateControl.appendChild(nPlateSetting);
 
       this.elem.appendChild(nPlateControl);
     }
@@ -409,8 +407,8 @@ class nPlate {
               direction: 'asc',
             }
 
-            this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_desc');
-            this.elem.querySelector('.n-plate__sort').classList.add('n-plate__sort_asc');
+            e.target.classList.remove('n-plate__sort_desc');
+            e.target.classList.add('n-plate__sort_asc');
           } else {
 
             if (this.config.order.field == field) {
@@ -420,14 +418,14 @@ class nPlate {
                   direction: 'desc',
                 }
 
-                this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_asc');
-                this.elem.querySelector('.n-plate__sort').classList.add('n-plate__sort_desc');
+                e.target.classList.remove('n-plate__sort_asc');
+                e.target.classList.add('n-plate__sort_desc');
                   
               } else {
                 delete this.config.order;
 
-                this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_asc');
-                this.elem.querySelector('.n-plate__sort').classList.remove('n-plate__sort_desc');
+                e.target.classList.remove('n-plate__sort_asc');
+                e.target.classList.remove('n-plate__sort_desc');
               }
             } else {
               this.config.order = {
