@@ -193,4 +193,5 @@
 }
 .n-plate__table {
   border-collapse: collapse;
+  width: 100%;
 }
