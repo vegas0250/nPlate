@@ -12,6 +12,8 @@ class nPlate {
 
     constructor(elem, config = {}) {
       this.elem = document.querySelector(elem);
+      this.elem.classList.add('n-plate');
+      
       this.config = Object.assign(this.config, config);
 
       for (let i in this.config.columns) {

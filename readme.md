@@ -1,4 +1,4 @@
-# nPlate
+# n-plate
 
 В разработке, но уже можно попробовать.
 
@@ -8,12 +8,12 @@
 
 Запроc на сервер:
 
-```json
+```javascript
 {
     'table': 'users'
     'columns': {
         'id': {},
-        'name: {},
+        'name': {},
         'age': {}
     },
     'limit': '10',
@@ -27,13 +27,13 @@
 
 Ответ сервера:
 
-```json
+```javascript
 {
-    'rows': {
+    'rows': [{
         'id': '112',
         'name': 'Иван',
         'age': '12',
-    },
+    }],
     'count': 999
 }
 
@@ -42,17 +42,21 @@
 ## Установка / использование
 
 + подключить css и js
-``` 
+```html
 <link rel="stylesheet" href="assets/dest/n-plate.css">
 <script src="assets/dest/n-plate.js"></script>
 ```
-+ созать DOM обьект
-```
-<div class="n-plate"></div>
++ создать DOM обьект
+```html
+<div class="my-element"></div>
 ```
 + инициализировать скрипт
-```
-new nPlate('.n-plate', {
+```javascript
+/* 
+Первый переданный элемент задается по правилам querySelector, если на странице несколько элементов с указанными параметрами, будет выбран первый.
+*/
+
+new nPlate('.my-element', {
   'url': 'http://localhost/get-json-data',
   'table': 'users',
   'columns': {
